@@ -12,7 +12,7 @@ export function enableSelectionEndEvent(
   textDetectTime = 0.1
 ) {
   _win = _window;
-  textDetectTime = Number(textDetectTime) * 1000;
+  textDetectTime = Number(textDetectTime) * 100;
   const triggerSelectionEndWithDelay = debounce(() => {
     triggerSelectionEnd(getSelectionText());
   }, textDetectTime);

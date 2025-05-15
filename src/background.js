@@ -163,7 +163,14 @@ function insertHistory(actionType) {
     var prevRecord = setting["historyList"][0];
 
     //skip if same prev
-    if (_util.getRecordID(newRecord) == _util.getRecordID(prevRecord)) {
+    //if (_util.getRecordID(newRecord) == _util.getRecordID(prevRecord)) {
+    //  return;
+    //}
+    // Проверка на дубликаты по всему списку
+    const isDuplicate = setting["historyList"].some(
+      (record) => _util.getRecordID(record) === _util.getRecordID(newRecord)
+    );
+    if (isDuplicate) {
       return;
     }
     //skip duplicate select
