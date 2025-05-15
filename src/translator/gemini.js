@@ -1,12 +1,33 @@
 import ky from "ky";
 import BaseTranslator from "./baseTranslator";
+import google from "./google";
 
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent";
 const GEMINI_API_KEY = "";
 
 export default class gemini extends BaseTranslator {
+
+  static async detectLanguage(text, sourceLang, targetLang) {
+    const res = await google.requestTranslate(text, sourceLang, targetLang);
+    return res.src || "auto";
+  };
+
   static async requestTranslate(text, sourceLang, targetLang) {
-    // Формируем промпт для перевода
+
+    let detectedLang = sourceLang;
+    if (sourceLang === "auto") {
+      detectedLang = await this.detectLanguage(text, sourceLang, targetLang);
+    }
+
+    if (detectedLang === targetLang) {
+      const response = {
+          targetText: text,
+          detectedLang,
+          transliteration: "",
+        };
+      return response
+    }
+
     const fullPrompt = `Переведи "${text}" на ${targetLang} язык. Ответь лаконично.`;
 
     const body = {
@@ -21,21 +42,33 @@ export default class gemini extends BaseTranslator {
       }
     };
 
-    const response = await ky.post(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+    let response = await ky.post(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
       json: body,
       headers: {
         "Content-Type": "application/json"
       }
     }).json();
 
+    response = {
+          targetText: response.candidates?.[0]?.content?.parts?.[0]?.text?.trim(),
+          detectedLang,
+          transliteration: "",
+        };
+
     return response;
   }
 
   static async wrapResponse(res, text, sourceLang, targetLang) {
-    const targetText = res.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+    let targetText = res['targetText']
+
+    if (targetText) {
+      targetText = targetText.replace(/(^|\s)\*(\s)/g, '$1• $2');
+      targetText = targetText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+    }
+
     return {
       targetText,
-      detectedLang: sourceLang,
+      detectedLang: res['detectedLang'],
       transliteration: "",
     };
   }
