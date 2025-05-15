@@ -38,6 +38,7 @@ var keyList = {
 var translatorList = {
   google: "google",
   bing: "bing",
+  "Gemini 2.0 Flash-Lite": 'gemini',
   "deepl (Experimental)": "deepl",
   "yandex (Experimental)": "yandex",
   "baidu (Experimental)": "baidu",
@@ -46,10 +47,10 @@ var translatorList = {
   "googleWeb (Experimental)": "googleWeb",
   "googleV2 (Experimental)": "googleV2",
   "googleWebImage (Experimental)": "googleWebImage",
-  // chatgpt: "chatgpt",
+  chatgpt: "chatgpt",
   // "lingva (Experimental)": "lingva",
   // "libreTranslate (Experimental)": "libreTranslate",
-  // "duckduckgo (Experimental)": "duckduckgo",
+  "duckduckgo (Experimental)": "duckduckgo",
   // "myMemory (Experimental)": "myMemory",
   // "watson (Experimental)": "watson",
   // "pixabay (Experimental)": "pixabay",
@@ -344,7 +345,7 @@ export var settingDict = {
     optionList: listenLangList,
     settingTab: "speech",
   },
-  
+
   voicePanelTranslateLanguage: {
     default: "default",
     description: browser.i18n.getMessage("Voice_Panel_Translate_Language"),
