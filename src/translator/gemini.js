@@ -21,14 +21,14 @@ export default class gemini extends BaseTranslator {
 
     if (detectedLang === targetLang) {
       const response = {
-          targetText: text,
+          targetText: text.trim(),
           detectedLang,
           transliteration: "",
         };
       return response
     }
 
-    const fullPrompt = `Переведи "${text}" на ${targetLang} язык. Ответь лаконично.`;
+    const fullPrompt = `Переведи «${text.trim()}» на ${targetLang} язык. Ответь лаконично.`;
 
     const body = {
       contents: [
@@ -69,7 +69,7 @@ export default class gemini extends BaseTranslator {
     return {
       targetText,
       detectedLang: res['detectedLang'],
-      transliteration: "",
+      transliteration: res['transliteration'],
     };
   }
 }

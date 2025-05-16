@@ -176,7 +176,7 @@ function insertHistory(actionType) {
     //skip duplicate select
     if (
       newRecord.actionType == "select" &&
-      newRecord.sourceText.includes(setting["historyList"]?.[0]?.sourceText)
+      newRecord.sourceText.trim().includes(setting["historyList"]?.[0]?.sourceText.trim())
     ) {
       setting["historyList"].shift();
     }
