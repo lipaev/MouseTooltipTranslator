@@ -333,7 +333,7 @@ function wrapMain(targetText, targetLang) {
   }
   return $("<span/>", {
     dir: getRtlDir(targetLang),
-    text: targetText,
+    html: targetText,
   }).prop("outerHTML");
 }
 

@@ -21,7 +21,7 @@ export default class gemini extends BaseTranslator {
 
     if (detectedLang === targetLang) {
       const response = {
-          targetText: text.trim(),
+          targetText: text,
           detectedLang,
           transliteration: "",
         };
@@ -63,7 +63,7 @@ export default class gemini extends BaseTranslator {
 
     if (targetText) {
       targetText = targetText.replace(/(^|\s)\*(\s)/g, '$1• $2');
-      targetText = targetText.replace(/\*\*(.*?)\*\*/g, '$1');
+      targetText = targetText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
     }
 
     return {

@@ -19,7 +19,7 @@ export function enableMouseoverTextEvent(
   textDetectTime = 0.1
 ) {
   _win = _window;
-  textDetectTime = Number(textDetectTime) * 100;
+  textDetectTime = Number(textDetectTime) * 200;
   const triggerMouseoverTextWithDelay = debounce(async () => {
     triggerMouseoverText(await getMouseoverText(clientX, clientY));
   }, textDetectTime);

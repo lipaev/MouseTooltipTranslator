@@ -9,10 +9,10 @@ var _win;
 var prevNoneSelect = false;
 export function enableSelectionEndEvent(
   _window = window,
-  textDetectTime = 0.1
+  textDetectTime = 0.4
 ) {
   _win = _window;
-  textDetectTime = Number(textDetectTime) * 100;
+  textDetectTime = Number(textDetectTime) * 1000;
   const triggerSelectionEndWithDelay = debounce(() => {
     triggerSelectionEnd(getSelectionText());
   }, textDetectTime);
