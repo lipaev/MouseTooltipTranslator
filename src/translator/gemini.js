@@ -64,6 +64,7 @@ export default class gemini extends BaseTranslator {
     if (targetText) {
       targetText = targetText.replace(/(^|\s)\*(\s)/g, '$1• $2');
       targetText = targetText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+      targetText = targetText.replace(/`([^`]+)`/g, '<code>$1</code>');
     }
 
     return {
