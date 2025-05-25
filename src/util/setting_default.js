@@ -36,6 +36,7 @@ var keyList = {
 var translatorList = {
   google: "google",
   bing: "bing",
+  "Gemini 2.0 Flash-Lite": 'gemini',
   "deepl (Experimental)": "deepl",
   "yandex (Experimental)": "yandex",
   "baidu (Experimental)": "baidu",
