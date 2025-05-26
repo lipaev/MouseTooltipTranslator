@@ -19,7 +19,7 @@ var mouseTarget = null;
 const nodeLengthCache = new WeakMap();
 
 export function enableMouseoverTextEvent(_window = window, settingPointer) {
-  var textDetectTime = setting?.["tooltipEventInterval"] || 0.7;
+  var textDetectTime = setting?.["tooltipEventInterval"] || 0.1;
 
   setting = settingPointer;
 
@@ -146,9 +146,9 @@ function expandRange(range, type, useSegmentation, x, y) {
       range = getContainerRange(range);
     } else if (isFirefox() || useSegmentation) {
       // for firefox, use segmentation to extract word
-      
-      
-        
+
+
+
   // console.time("expandRangeWithSeg");
   range = expandRangeWithSeg(range, type, x, y);
 
@@ -342,7 +342,7 @@ function expandRangeWithSeg(rangeOri, type = "word", x, y) {
   // }
 
 
-    
+
 
   // console.time("expandRangeWithSeginit");
   var range = rangeOri.cloneRange();
@@ -370,7 +370,7 @@ function expandRangeWithSeg(rangeOri, type = "word", x, y) {
   // console.log("New Line Count:", newLineCount);
 
   // console.log("wordSliceInfo:", wordSliceInfo);
-  
+
   // console.log('==========================================================2');
   var wholeText = getNodeText(textNode);
 
@@ -382,8 +382,8 @@ function expandRangeWithSeg(rangeOri, type = "word", x, y) {
   // console.log("Text Length:", textLength);
   // console.log("New Line Count:", newLineCount);
   // console.log("wordSliceInfo:", wordSliceInfo);
-  
-  
+
+
   // get all word range by segment
   // console.time("findWordRange");
   const currentWordNode = findWordRange(wordSliceInfo, textNode, x, y);
@@ -415,7 +415,7 @@ function getWordSegmentInfo(text, type) {
 
 function findWordRange(wordSegInfo, textNode, x, y) {
   var newLineCount = 0;
-  
+
   // console.log(wordSegInfo)
   // console.log(textNode)
 
@@ -443,7 +443,7 @@ function findWordRange(wordSegInfo, textNode, x, y) {
     })
     .filter((wordMeta) => wordMeta.segment.length > 0);
   // console.timeEnd("wordSegInfoExtract");
-    
+
 
   // console.time("wordSegInfoExtractLoop");
   for (const wordMeta of wordSegInfoExtract) {

@@ -359,7 +359,7 @@ function wrapMain(targetText, targetLang) {
   }
   return $("<span/>", {
     dir: getRtlDir(targetLang),
-    text: targetText,
+    html: targetText,
   }).prop("outerHTML");
 }
 
@@ -885,7 +885,7 @@ function applyStyleSetting() {
       text-align: ${setting["tooltipTextAlign"]} !important;
       overflow-wrap: break-word !important;
       color: ${setting["tooltipFontColor"]} !important;
-      font-family: 
+      font-family:
         -apple-system, BlinkMacSystemFont,
         "Segoe UI", "Roboto", "Oxygen",
         "Ubuntu", "Cantarell", "Fira Sans",
@@ -896,7 +896,7 @@ function applyStyleSetting() {
       max-width: ${setting["tooltipWidth"]}px  !important;
       backdrop-filter: blur(${setting["tooltipBackgroundBlur"]}px) !important;
       background-color: ${setting["tooltipBackgroundColor"]} !important;
-      border: 1px solid ${setting["tooltipBorderColor"]}; 
+      border: 1px solid ${setting["tooltipBorderColor"]};
       box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     }
     [data-tippy-root] {
@@ -904,7 +904,7 @@ function applyStyleSetting() {
       visibility: visible  !important;
       position: absolute !important;
     }
-    .tippy-box[data-theme~='custom'][data-placement^='top'] > .tippy-arrow::before { 
+    .tippy-box[data-theme~='custom'][data-placement^='top'] > .tippy-arrow::before {
       border-top-color: ${setting["tooltipBackgroundColor"]} !important;
     }
     .tippy-box[data-theme~='custom'][data-placement^='bottom'] > .tippy-arrow::before {
@@ -918,7 +918,7 @@ function applyStyleSetting() {
     }
     .mtt-highlight{
       background-color: ${setting["mouseoverTextHighlightColor"]}  !important;
-      position: absolute !important;   
+      position: absolute !important;
       z-index: 2147483646 !important; /* Slightly lower than tooltip */
       pointer-events: none !important;
       display: inline !important;
@@ -942,7 +942,7 @@ function applyStyleSetting() {
     #ytp-caption-window-container .ytp-caption-segment {
       cursor: text !important;
       user-select: text !important;
-      font-family: 
+      font-family:
       -apple-system, BlinkMacSystemFont,
       "Segoe UI", "Roboto", "Oxygen",
       "Ubuntu", "Cantarell", "Fira Sans",

@@ -9,6 +9,7 @@ import googleV2 from "./googleV2.js";
 import googleGTX from "./googleGTX.js";
 import chatgpt from "./chatgpt.js";
 import gemini from "./gemini.js";
+import gemini_explanation from "./gemini_explanation.js"
 import googleWebImage from "./googleWebImage.js";
 
 export default {
@@ -24,4 +25,5 @@ export default {
   baidu,
   chatgpt,
   gemini,
+  gemini_explanation,
 };

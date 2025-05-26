@@ -37,6 +37,7 @@ var translatorList = {
   google: "google",
   bing: "bing",
   "Gemini 2.0 Flash-Lite": 'gemini',
+  "Gemini Explanation": 'gemini_explanation',
   "deepl (Experimental)": "deepl",
   "yandex (Experimental)": "yandex",
   "baidu (Experimental)": "baidu",
@@ -336,7 +337,7 @@ export var settingDict = {
     optionList: listenLangList,
     settingTab: "speech",
   },
-  
+
   voicePanelTranslateLanguage: {
     default: "default",
     i18nKey: "Voice_Panel_Translate_Language",
