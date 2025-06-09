@@ -31,6 +31,8 @@ var keyList = {
   "Click Middle": "ClickMiddle",
   "Click Right": "ClickRight",
   "F2": "F2",
+  "F8": "F8",
+  "F9": "F9",
 };
 
 var translatorList = {
@@ -183,7 +185,13 @@ export var settingDict = {
     optionList: langListWithNone,
     settingTab: "main",
   },
-
+  detectSubtitle: {
+    default: "dualsub",
+    i18nKey: "Detect_Subtitle",
+    optionList: subtitleTypeList,
+    settingTab: "main",
+  },
+  
   // keyboard
   showTooltipWhen: {
     default: "always",
@@ -322,7 +330,7 @@ export var settingDict = {
     settingTab: "graphic",
   },
   mouseoverTextHighlightColor: {
-    default: "#21dc6d40",
+    default: "#329B7B",
     i18nKey: "Mouseover_Text_Highlight_Color",
     optionList: {},
     optionType: "colorPicker",
@@ -417,12 +425,6 @@ export var settingDict = {
 
   // advanced
 
-  detectSubtitle: {
-    default: "dualsub",
-    i18nKey: "Detect_Subtitle",
-    optionList: subtitleTypeList,
-    settingTab: "advanced",
-  },
   detectPDF: {
     default: "true",
     i18nKey: "Detect_PDF",

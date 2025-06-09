@@ -1,9 +1,9 @@
 {
 	"MAIN______________________________________": {
-		"message": "ГЛАВНЫЕ НАСТРОЙКИ                                      "
+		"message": "ГЛАВНАЯ                                      "
 	},
 	"MAIN": {
-		"message": "ГЛАВНОЕ"
+		"message": "ГЛАВНАЯ"
 	},
 	"Mouse_Tooltip_Translator": {
 		"message": "Переводчик контекста мышью"
@@ -26,17 +26,20 @@
 	"Writing_Language": {
 		"message": "Язык написания текста"
 	},
-	"OCR_Language": {
-		"message": "Язык распознавания текста"
-	},
 	"Reverse_Translate_Language": {
 		"message": "Язык обратного перевода"
 	},
+	"OCR_Language": {
+		"message": "Язык распознавания текста"
+	},
+	"Detect_Subtitle": {
+		"message": "Определять наличие субтитров"
+	},
 	"KEYBOARD______________________________________": {
-		"message": "KEYBOARD                                      "
+		"message": "ГОРЯЧИЕ КЛАВИШИ                                      "
 	},
 	"KEYBOARD": {
-		"message": "KEYBOARD"
+		"message": "ГОРЯЧИЕ КЛАВИШИ"
 	},
 	"Show_Tooltip_When": {
 		"message": "Показать подсказку когда"
@@ -102,10 +105,10 @@
 		"message": "Цвет подсветки текста при наведении курсора"
 	},
 	"VOICE______________________________________": {
-		"message": "ГОЛОСОВЫЕ                                      "
+		"message": "ГОЛОСОВЫЕ НАСТРОЙКИ                                      "
 	},
 	"VOICE": {
-		"message": "ГОЛОСОВЫЕ"
+		"message": "ГОЛОСОВЫЕ НАСТРОЙКИ"
 	},
 	"Voice_Volume": {
 		"message": "Громкость голоса"
@@ -127,9 +130,6 @@
 	},
 	"ADVANCED": {
 		"message": "РАСШИРЕННЫЕ НАСТРОЙКИ"
-	},
-	"Detect_Subtitle": {
-		"message": "Определять наличие субтитров"
 	},
 	"Detect_PDF": {
 		"message": "Определять PDF-файлы"
@@ -153,10 +153,10 @@
 		"message": "Пользовательский словарь в поле переводчика"
 	},
 	"Voice_Translated_Speed": {
-		"message": "Voice Translated Speed"
+		"message": "Скорость воспроизведения перевода"
 	},
 	"SPEECH": {
-		"message": "НАСТРОЙКА РЕЧИ"
+		"message": "РАСПОЗНАВАНИЕ РЕЧИ"
 	},
 	"Speech_Recognition_Language": {
 		"message": "Язык распознавания речи"
@@ -269,11 +269,11 @@
 	"Coffee______________________________________": {
 		"message": "Поддержать разработчика                                      "
 	},
-	"Support_the_translator_devs": {
-		"message": "Support the translator devs"
+	"Support_this_extension": {
+		"message": "Поддержать разработку расширения"
 	},
-	"Feed_a_coffee_to_devs": {
-		"message": "Feed a coffee to devs"
+	"Feed_a_coffee_to_the_extension_devs": {
+		"message": "Поддержите разработчиков чашкой кофе"
 	},
 	"Title______________________________________": {
 		"message": "Название                                      "
