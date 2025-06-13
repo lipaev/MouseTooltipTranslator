@@ -483,6 +483,13 @@ export var settingDict = {
     optionType: "comboBox",
     settingTab: "exclude",
   },
+  websiteWhiteList: {
+    default: [],
+    i18nKey: "Whitelist_Website",
+    optionList: "",
+    optionType: "comboBox",
+    settingTab: "exclude",
+  },  
 
   // remains
   subtitleButtonToggle: {
