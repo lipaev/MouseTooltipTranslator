@@ -330,7 +330,7 @@ export var settingDict = {
     settingTab: "graphic",
   },
   mouseoverTextHighlightColor: {
-    default: "#329B7B",
+    default: "#21dc6d40",
     i18nKey: "Mouseover_Text_Highlight_Color",
     optionList: {},
     optionType: "colorPicker",
@@ -415,7 +415,7 @@ export var settingDict = {
     settingTab: "speech",
   },
   voicePanelBackgroundColor: {
-    default: "#002918",
+    default: "#333333",
     i18nKey: "Voice_Panel_Background_Color",
     optionList: {},
     optionType: "colorPicker",
@@ -465,6 +465,13 @@ export var settingDict = {
     default: "default",
     i18nKey: "Voice_Translated_Speed",
     optionList: voiceRateListWithDefault,
+    settingTab: "advanced",
+  },
+
+  fallbackTranslatorEngine: {
+    default: "true",
+    i18nKey: "Fallback_Translator_Engine",
+    optionList: toggleList,
     settingTab: "advanced",
   },
 

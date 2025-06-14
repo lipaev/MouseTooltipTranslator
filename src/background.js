@@ -18,6 +18,13 @@ var introSiteUrl =
   "https://github.com/ttop32/MouseTooltipTranslator/blob/main/doc/intro.md#how-to-use";
 var recentRecord = {};
 
+var fallbackEngineActList = ["google", "bing", "baidu", "papago", "deepl"];
+var fallbackEngineCrashTime = { google: 1, bing: 2, baidu: 3 };
+var fallbackEngineCrashCount = {};
+var fallbackWaitTime = 1000 * 60 * 60; // 1 hour
+var fallbackEngineSwapList = ["google", "bing", "baidu"];
+var fallbackMaxRetry = fallbackEngineSwapList.length;
+
 (async function backgroundInit() {
   try {
     injectContentScriptForAllTab(); // check extension updated, then re inject content script
@@ -82,7 +89,12 @@ function addMessageListener() {
 async function translate({ text, sourceLang, targetLang, engine }) {
   var engine = engine || setting["translatorVendor"];
   return (
-    (await getTranslateCached(text, sourceLang, targetLang, engine)) || {
+    (await translateWithFallbackEngine(
+      text,
+      sourceLang,
+      targetLang,
+      engine
+    )) || {
       targetText: `${engine} is broken`,
       transliteration: "",
       sourceLang: "",
@@ -90,6 +102,60 @@ async function translate({ text, sourceLang, targetLang, engine }) {
       isBroken: true,
     }
   );
+}
+
+async function translateWithFallbackEngine(
+  text,
+  sourceLang,
+  targetLang,
+  engine,
+  retry = 0
+) {
+  if (retry > fallbackMaxRetry) {
+    return null;
+  }
+  if (fallbackEngineCrashCount[engine] == null) {
+    fallbackEngineCrashCount[engine] = 0;
+  }
+  if (fallbackEngineCrashTime[engine] == null) {
+    fallbackEngineCrashTime[engine] = 4;
+  }
+  let translateResult;
+  var isFallbackApply =
+    setting["fallbackTranslatorEngine"] == "true" &&
+    fallbackEngineActList.includes(engine);
+  var sortedEngines = Object.keys(fallbackEngineCrashTime)
+    .filter((engine_cur) => fallbackEngineSwapList.includes(engine_cur))
+    .filter((engine_cur) => engine_cur != engine)
+    .sort((a, b) => fallbackEngineCrashTime[a] - fallbackEngineCrashTime[b]);
+  var swapEngine = sortedEngines[0];
+
+  if (
+    fallbackEngineCrashTime[engine] < new Date().getTime() ||
+    !isFallbackApply
+  ) {
+    translateResult = await getTranslateCached(
+      text,
+      sourceLang,
+      targetLang,
+      engine
+    );
+  }
+
+  if (isFallbackApply && !translateResult) {
+    fallbackEngineCrashCount[engine] += 1; // increase crash count
+    fallbackEngineCrashTime[engine] =
+      new Date().getTime() +
+      fallbackWaitTime * fallbackEngineCrashCount[engine]; // set next retry time
+    translateResult = await translateWithFallbackEngine(
+      text,
+      sourceLang,
+      targetLang,
+      swapEngine,
+      retry + 1
+    );
+  }
+  return translateResult;
 }
 
 const getTranslateCached = util.cacheFn(getTranslate);
