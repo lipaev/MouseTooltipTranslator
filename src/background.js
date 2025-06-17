@@ -18,7 +18,7 @@ var introSiteUrl =
   "https://github.com/ttop32/MouseTooltipTranslator/blob/main/doc/intro.md#how-to-use";
 var recentRecord = {};
 
-var fallbackEngineActList = ["google", "bing", "baidu", "papago", "deepl"];
+var fallbackEngineActList = ["google", "bing", "baidu", "papago", "deepl", "yandex"];
 var fallbackEngineCrashTime = { google: 1, bing: 2, baidu: 3 };
 var fallbackEngineCrashCount = {};
 var fallbackWaitTime = 1000 * 60 * 60; // 1 hour
@@ -86,8 +86,36 @@ function addMessageListener() {
 
 //translate function====================================================
 
-async function translate({ text, sourceLang, targetLang, engine }) {
+
+async function translateWithReverse({
+  text,
+  sourceLang,
+  targetLang,
+  reverseLang,
+  engine,
+}) {
   var engine = engine || setting["translatorVendor"];
+  var response = await translate({ text, sourceLang, targetLang, engine });
+  //if to,from lang are same and reverse translate on
+  if (
+    !response.isBroken &&
+    targetLang == response.sourceLang &&
+    // text == response.translatedText &&
+    reverseLang != null &&
+    reverseLang != "null" &&
+    reverseLang != targetLang
+  ) {
+    response = await translate({
+      text,
+      sourceLang: response.sourceLang,
+      targetLang: reverseLang,
+      engine,
+    });
+  }
+  return response;
+}
+
+async function translate({ text, sourceLang, targetLang, engine }) {
   return (
     (await translateWithFallbackEngine(
       text,
@@ -162,33 +190,6 @@ const getTranslateCached = util.cacheFn(getTranslate);
 
 async function getTranslate(text, sourceLang, targetLang, engine) {
   return await translator[engine].translate(text, sourceLang, targetLang);
-}
-
-async function translateWithReverse({
-  text,
-  sourceLang,
-  targetLang,
-  reverseLang,
-  engine,
-}) {
-  var response = await translate({ text, sourceLang, targetLang, engine });
-  //if to,from lang are same and reverse translate on
-  if (
-    !response.isBroken &&
-    targetLang == response.sourceLang &&
-    // text == response.translatedText &&
-    reverseLang != null &&
-    reverseLang != "null" &&
-    reverseLang != targetLang
-  ) {
-    response = await translate({
-      text,
-      sourceLang: response.sourceLang,
-      targetLang: reverseLang,
-      engine,
-    });
-  }
-  return response;
 }
 
 //setting ============================================================
