@@ -38,7 +38,7 @@ var keyList = {
 var translatorList = {
   google: "google",
   bing: "bing",
-  "Gemini 2.0 Flash-Lite": 'gemini',
+  "Gemini 2.5 Flash-Lite": 'gemini',
   "Gemini Explanation": 'gemini_explanation',
   "deepl (Experimental)": "deepl",
   "yandex (Experimental)": "yandex",
@@ -191,7 +191,7 @@ export var settingDict = {
     optionList: subtitleTypeList,
     settingTab: "main",
   },
-  
+
   // keyboard
   showTooltipWhen: {
     default: "always",
@@ -496,7 +496,7 @@ export var settingDict = {
     optionList: "",
     optionType: "comboBox",
     settingTab: "exclude",
-  },  
+  },
 
   // remains
   subtitleButtonToggle: {
