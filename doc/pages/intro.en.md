@@ -30,13 +30,13 @@ Proletarier aller Länder, vereinigt euch!
 
 ![result](/doc/12.gif)
 
-- Support dual subtitles for YouTube and Netflix.
+- Support dual subtitles for YouTube videos.
 
 ![result](/doc/16.gif)
 
 - Process OCR when holding <kbd>left-shift</kbd> key + mouse over on an image (e.g., manga)
 
-![result](/doc/ocr_result1.gif)
+![result](/doc/15.gif)
 
 - Run auto reader by press <kbd>F2</kbd> key
   - It start read mouse over text all the way with tts
@@ -52,6 +52,16 @@ Proletarier aller Länder, vereinigt euch!
   - Only compatible with Chromium-based browsers, such as Google Chrome, MS-Edge, Vivaldi, Opera, Brave, Arc, and Yandex.
 - Customize shortcut key
   - From chrome://extensions/shortcuts or the equivalent browser internal configuration page, accessible by replacing chrome:// with your browser's internal URL (e.g., edge://, browser://, or brave:// etc).
+
+# Enable Dark Mode
+
+- To enable dark mode, navigate to the Settings page.
+  - The Settings page can be accessed by clicking the puzzle (extension) button located at the top right of your browser.
+  - In the Settings page, toggle the "Dark Mode" option to enable or disable it.
+  - Changes will apply immediately across the application.
+
+![Dark Mode Example](/doc/darkmode.gif)
+
 # Change Language
 - Change current language in setting page
   -  The Settings page can be accessed by clicking the puzzle (extension) button  located at the top right of your browser.

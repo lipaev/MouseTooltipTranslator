@@ -36,10 +36,10 @@
 		"message": "Detectar Legenda"
 	},
 	"KEYBOARD______________________________________": {
-		"message": "KEYBOARD                                      "
+		"message": "TECLADO                                      "
 	},
 	"KEYBOARD": {
-		"message": "KEYBOARD"
+		"message": "TECLADO"
 	},
 	"Show_Tooltip_When": {
 		"message": "Mostrar Dica Quando"
@@ -150,13 +150,16 @@
 		"message": "Intervalo de Tempo da Dica"
 	},
 	"Tooltip_Word_Dictionary": {
-		"message": "Tooltip Word Dictionary"
+		"message": "Dicionário de Palavras de Dicas"
 	},
 	"Voice_Translated_Speed": {
-		"message": "Voice Translated Speed"
+		"message": "Velocidade de voz traduzida"
 	},
 	"Fallback_Translator_Engine": {
-		"message": "Fallback Translator Engine"
+		"message": "Motor de tradução de Fallback"
+	},
+	"OCR_Tooltip_Box": {
+		"message": "Caixa de dica de OCR"
 	},
 	"SPEECH": {
 		"message": "DISCURSO"
@@ -207,10 +210,10 @@
 		"message": "Excluir Idioma"
 	},
 	"Exclude_Website": {
-		"message": "Exclude Website"
+		"message": "Excluir site"
 	},
 	"Whitelist_Website": {
-		"message": "Whitelist Website"
+		"message": "Lista de permissões"
 	},
 	"About______________________________________": {
 		"message": "Sobre                                      "
@@ -240,16 +243,16 @@
 		"message": "Respostar a postagem do Twitter"
 	},
 	"Review_Page": {
-		"message": "Revisão da Página"
+		"message": "Avaliações"
 	},
 	"Comment_on_this_extension": {
-		"message": "Comentar nessa extensão"
+		"message": "Avalie esta extensão"
 	},
 	"Source_code": {
 		"message": "Código-fonte"
 	},
 	"Check_source_code_in_github": {
-		"message": "Checar o código fonte no github"
+		"message": "Checar o código-fonte no GitHub"
 	},
 	"Privacy_Policy": {
 		"message": "Política de Privacidade"
@@ -276,16 +279,16 @@
 		"message": "Café"
 	},
 	"Support_this_extension": {
-		"message": "Support this extension"
+		"message": "Apoie esta extensão"
 	},
 	"Feed_a_coffee_to_the_extension_devs": {
-		"message": "Feed a coffee to the extension devs"
+		"message": "Doe um café para os desenvolvedores da extensão"
 	},
 	"Title______________________________________": {
 		"message": "Título                                      "
 	},
 	"appName": {
-		"message": "Mouse Tooltip Translator - PDF & Netflix Youtube dual subs"
+		"message": "Mouse Tooltip Translator - Legendas duplas em PDF, Netflix e YouTube"
 	},
 	"appDesc": {
 		"message": "Tradução de Texto usando google tradutor do Mouse Tooltip Translator. Suporte ao OCR, TTS, tradutor de manga & tradutor de PDF."

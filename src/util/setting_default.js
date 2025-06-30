@@ -44,6 +44,7 @@ var translatorList = {
   "yandex (Experimental)": "yandex",
   "baidu (Experimental)": "baidu",
   "papago (Experimental)": "papago",
+  "browser API (Experimental)": "browserAPI",
   "googleWebImage (Experimental)": "googleWebImage",
   "googleGTX (Experimental)": "googleGTX",
   "googleWeb (Experimental)": "googleWeb",
@@ -467,13 +468,19 @@ export var settingDict = {
     optionList: voiceRateListWithDefault,
     settingTab: "advanced",
   },
-
   fallbackTranslatorEngine: {
     default: "true",
     i18nKey: "Fallback_Translator_Engine",
     optionList: toggleList,
     settingTab: "advanced",
   },
+  ocrTooltipBox: {
+    default: "true",
+    i18nKey: "OCR_Tooltip_Box",
+    optionList: toggleList,
+    settingTab: "advanced",
+  },
+
 
   // exclude
   langExcludeList: {
@@ -541,9 +548,9 @@ export var settingDict = {
     optionList: [],
     settingTab: "remains",
   },
-  tooltipEventInterval: {
-    default: "0.3",
-    i18nKey: "Tooltip_Interval_Time",
+  mouseoverEventInterval: {
+    default: "400",
+    i18nKey: "Mouseover_Event_Interval",
     optionList: tooltipIntervalTimeList,
     settingTab: "remains",
   },

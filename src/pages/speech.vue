@@ -25,12 +25,14 @@
   </div>
 </template>
 <script>
-import * as util from "/src/util";
-
 import _ from "lodash";
 import * as speech from "/src/speech";
 import SettingUtil from "/src/util/setting_util.js";
 import { getRtlDir } from "/src/util/lang.js";
+var browser;
+try {
+  browser = require("webextension-polyfill");
+} catch (error) {}
 
 export default {
   name: "SpeechView",
@@ -132,15 +134,45 @@ export default {
     warnNoPermission() {
       alert(`Mouse tooltip translator requires permission for microphone.
 This page will be redirected to the permission page after confirm.`);
-      util.openAudioPermissionPage();
+      this.openAudioPermissionPage();
     },
+
+    openAudioPermissionPage() {
+      this.openPage(`chrome://settings/content/microphone`);
+    },
+    openPage(url) {
+      browser?.tabs.create({ url });
+    },
+
+    async requestTranslate(word, sourceLang, targetLang, reverseLang) {
+      return await this.sendMessage({
+        type: "translate",
+        data: {
+          text: word,
+          sourceLang,
+          targetLang,
+          reverseLang,
+        },
+      });
+    },
+    async sendMessage(message) {
+      try {
+        return await browser.runtime.sendMessage(message);
+      } catch (e) {
+        console.log(e);
+      }
+      return {};
+    },
+
     warnNoDevice() {
       alert(`There is no microphone.
 Check any microphone is correctly connected`);
     },
 
     initSpeechLang() {
-      speech.setSpeechRecognitionLang(this.setting["speechRecognitionLanguage"]);
+      speech.setSpeechRecognitionLang(
+        this.setting["speechRecognitionLanguage"]
+      );
     },
     handleFinish() {
       // restart if fin
@@ -198,7 +230,7 @@ Check any microphone is correctly connected`);
           ? this.setting["translateTarget"]
           : this.setting["voicePanelTranslateLanguage"];
 
-      return await util.requestTranslate(
+      return await this.requestTranslate(
         text,
         this.setting["translateSource"],
         targetLang

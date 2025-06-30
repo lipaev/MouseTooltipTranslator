@@ -12,12 +12,6 @@ import * as util from "/src/util";
 import SettingUtil from "/src/util/setting_util.js";
 import _util from "/src/util/lodash_util.js";
 
-var setting;
-var recentTranslated = "";
-var introSiteUrl =
-  "https://github.com/ttop32/MouseTooltipTranslator/blob/main/doc/intro.md#how-to-use";
-var recentRecord = {};
-
 var fallbackEngineActList = ["google", "bing", "baidu", "papago", "deepl", "yandex"];
 var fallbackEngineCrashTime = { google: 1, bing: 2, baidu: 3 };
 var fallbackEngineCrashCount = {};
@@ -25,10 +19,16 @@ var fallbackWaitTime = 1000 * 60 * 60; // 1 hour
 var fallbackEngineSwapList = ["google", "bing", "baidu"];
 var fallbackMaxRetry = fallbackEngineSwapList.length;
 
+var setting;
+var recentTranslated = "";
+var introSiteUrl =
+  "https://github.com/ttop32/MouseTooltipTranslator/blob/main/doc/intro.md#how-to-use";
+var recentRecord = {};
+
 (async function backgroundInit() {
   try {
+    handleFirstTimeInstall(introSiteUrl); // check first start and redirect to how to use url
     injectContentScriptForAllTab(); // check extension updated, then re inject content script
-    addInstallUrl(introSiteUrl); // check first start and redirect to how to use url
     // addUninstallUrl(util.getReviewUrl());  //listen extension uninstall and
 
     await getSetting(); //  load setting
@@ -85,7 +85,6 @@ function addMessageListener() {
 }
 
 //translate function====================================================
-
 
 async function translateWithReverse({
   text,
@@ -339,10 +338,14 @@ function addUninstallUrl(url) {
   browser.runtime.setUninstallURL(url);
 }
 
-function addInstallUrl(url) {
+function handleFirstTimeInstall(url) {
   browser.runtime.onInstalled.addListener(async (details) => {
     if (details.reason == "install") {
       browser.tabs.create({ url });
+      await getSetting();
+      var translatorVendor=await SettingUtil.getDefaultTranslator();
+      setting["translatorVendor"]= translatorVendor;
+      setting.save();
     }
   });
 }

@@ -19,13 +19,12 @@ var mouseTarget = null;
 const nodeLengthCache = new WeakMap();
 var prevWordSegIndex = 0;
 
-export function enableMouseoverTextEvent(_window = window, settingPointer) {
-  var textDetectTime = setting?.["tooltipEventInterval"] || 0.1;
-
-  setting = settingPointer;
+export function enableMouseoverTextEvent(_window = window, currentSetting) {
+  setting = currentSetting;
+  var textDetectTime = setting?.["mouseoverEventInterval"] || 700;
 
   _win = _window;
-  textDetectTime = Number(textDetectTime) * 1000;
+  textDetectTime = Number(textDetectTime);
   const triggerMouseoverTextWithDelay = debounce(async () => {
     triggerMouseoverText(await getMouseoverText(clientX, clientY));
   }, textDetectTime);

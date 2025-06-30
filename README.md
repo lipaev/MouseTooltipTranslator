@@ -7,17 +7,18 @@ Mouseover Translate Any Language At Once - Chrome Extension
    
 Download from [chrome web store](https://chromewebstore.google.com/detail/hmigninkgibhdckiaphhmbgcghochdjc), [Edge Extension store](https://microsoftedge.microsoft.com/addons/detail/mouse-tooltip-translator/nnodgmifnfgkolmakhcfkkbbjjcobhbl) and [Firefox Addons](https://addons.mozilla.org/en-US/firefox/addon/mouse-tooltip-translator-pdf/)
 
-  
+   
 [<img alt="chrome web store" height="54px" src="doc/google.png" />](https://chrome.google.com/webstore/detail/mouse-tooltip-translator/hmigninkgibhdckiaphhmbgcghochdjc)
 [<img alt="microsoft store" height="54px" src="doc/microsoft.png" />](https://microsoftedge.microsoft.com/addons/detail/mouse-tooltip-translator/nnodgmifnfgkolmakhcfkkbbjjcobhbl)
 [<img alt="microsoft store" height="54px" src="doc/firefox_addons.png" />](https://addons.mozilla.org/en-US/firefox/addon/mouse-tooltip-translator-pdf/)
 [<img alt="softpedia" height="54px" src="doc/softpedia.png" />](https://www.softpedia.com/get/Internet/Internet-Applications-Addons/Chrome-Extensions/Mouse-Tooltip-Translator-for-Chrome.shtml)
 
-# Result  
+# Result   
     
 ![Alt Text](doc/result1532.gif)
 ![result](doc/screenshot_3.png)
 ![result](doc/screenshot_6.png) 
+![OCR Result](doc/ocr_result1.gif)
 
 # Features
  
@@ -186,6 +187,14 @@ npm run build        // or 'npm run watch' for developing
       <br /><sub><b><code title="Vietnamese">vi</code></b></sub>
     </td>
     <td align="center" valign="top">
+      <a href="https://crowdin.com/profile/merlette"><img alt="logo" style="width: 100px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17150502/medium/0b41e0651072a8a930db192f29cc35e9.png" />
+        <br />
+        <sub><b>Logan Shen (merlette)</b></sub></a>
+      <br />
+      <sub><b>88 words</b></sub>
+      <br /><sub><b><code title="Chinese Simplified">zh-CN</code></b>, <b><code title="Chinese Traditional">zh-TW</code></b></sub>
+    </td>
+    <td align="center" valign="top">
       <a href="https://crowdin.com/profile/Mirnyang"><img alt="logo" style="width: 100px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14153733/medium/9a2fe282298d66026016c71086cc6d6e.png" />
         <br />
         <sub><b>미르냥 (Mirnyang)</b></sub></a>
@@ -200,14 +209,6 @@ npm run build        // or 'npm run watch' for developing
       <br />
       <sub><b>83 words</b></sub>
       <br /><sub><b><code title="Turkish">tr</code></b></sub>
-    </td>
-    <td align="center" valign="top">
-      <a href="https://crowdin.com/profile/merlette"><img alt="logo" style="width: 100px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17150502/medium/0b41e0651072a8a930db192f29cc35e9.png" />
-        <br />
-        <sub><b>Logan Shen (merlette)</b></sub></a>
-      <br />
-      <sub><b>82 words</b></sub>
-      <br /><sub><b><code title="Chinese Simplified">zh-CN</code></b>, <b><code title="Chinese Traditional">zh-TW</code></b></sub>
     </td>
     <td align="center" valign="top">
       <a href="https://crowdin.com/profile/helimoreira"><img alt="logo" style="width: 100px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16569873/medium/2a7d04568e352021ae7b1eba23f28074_default.png" />
@@ -236,6 +237,14 @@ npm run build        // or 'npm run watch' for developing
       <br /><sub><b><code title="Turkish">tr</code></b></sub>
     </td>
     <td align="center" valign="top">
+      <a href="https://crowdin.com/profile/EdsonBittencourt"><img alt="logo" style="width: 100px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17063692/medium/6e515b39a5c761ac0aacb767ea092783.png" />
+        <br />
+        <sub><b>EdsonBittencourt</b></sub></a>
+      <br />
+      <sub><b>57 words</b></sub>
+      <br /><sub><b><code title="Portuguese, Brazilian">pt-BR</code></b></sub>
+    </td>
+    <td align="center" valign="top">
       <a href="https://crowdin.com/profile/annatomika.one"><img alt="logo" style="width: 100px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16117142/medium/6c5bd49cb0c367978de3a95ff43cc973.jpeg" />
         <br />
         <sub><b>ID Hunter (ASAP) (annatomika.one)</b></sub></a>
@@ -250,14 +259,6 @@ npm run build        // or 'npm run watch' for developing
       <br />
       <sub><b>13 words</b></sub>
       <br /><sub><b><code title="English, Australia">en-AU</code></b></sub>
-    </td>
-    <td align="center" valign="top">
-      <a href="https://crowdin.com/profile/EdsonBittencourt"><img alt="logo" style="width: 100px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17063692/medium/6e515b39a5c761ac0aacb767ea092783.png" />
-        <br />
-        <sub><b>EdsonBittencourt</b></sub></a>
-      <br />
-      <sub><b>10 words</b></sub>
-      <br /><sub><b><code title="Portuguese, Brazilian">pt-BR</code></b></sub>
     </td>
   </tr>
   <tr>

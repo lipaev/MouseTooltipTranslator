@@ -42,7 +42,7 @@
 </template>
 <script>
 import browser from "webextension-polyfill";
-import * as util from "/src/util";
+import { getReviewUrl } from "/src/util/review_util.js";
 
 export default {
   name: "AboutView",
@@ -82,8 +82,8 @@ export default {
         },
         reviewPage: {
           name: browser.i18n.getMessage("Review_Page"),
-          sub_name: browser.i18n.getMessage("Comment_on_this_extension"),
-          url: util.getReviewUrl(),
+          sub_name: browser.i18n.getMessage("Comment_on_this extension"),
+          url: getReviewUrl(),
           icon: "mdi-message-draw",
           color: "primary",
         },
@@ -103,11 +103,13 @@ export default {
         },
         buyMeCoffee: {
           name: browser.i18n.getMessage("Support_this_extension"),
-          sub_name: browser.i18n.getMessage("Feed_a_coffee_to_the_extension_devs"),
+          sub_name: browser.i18n.getMessage(
+            "Feed_a_coffee_to_the_extension_devs"
+          ),
           url: "https://buymeacoffee.com/ttop324",
           icon: "mdi-coffee-to-go",
           color: "brown",
-        },        
+        },
       },
     };
   },
@@ -116,8 +118,38 @@ export default {
       if (!isPanelOpen) {
         window.open(url);
       } else {
-        util.openUrlAsPanel(url);
+        this.openUrlAsPanel(url);
       }
+    },
+    async openUrlAsPanel(url) {
+      var url = browser.runtime.getURL(url);
+      await this.removePreviousTab(url);
+      this.openPanel(url);
+    },
+    async removePreviousTab(url) {
+      var urlParsed = new URL(url);
+      var urlWithoutParam = urlParsed.origin + urlParsed.pathname;
+      var tabs = await browser.tabs.query({ url: urlWithoutParam });
+
+      for (const tab of tabs) {
+        if (url == tab.url) {
+          await browser.tabs.remove(tab.id);
+        }
+      }
+    },
+    openPanel(url) {
+      var width = Math.round(screen.width * 0.5);
+      var height = Math.round(screen.height * 0.15);
+      var left = Math.round(screen.width / 2 - width / 2);
+      var top = Math.round(screen.height / 2 - height / 2);
+      browser.windows.create({
+        url,
+        type: "panel",
+        width,
+        height,
+        left,
+        top,
+      });
     },
   },
 };
