@@ -28,7 +28,7 @@ export default class gemini extends BaseTranslator {
       return response
     }
 
-    const fullPrompt = `Переведи «${text.trim()}» на ${targetLang} язык. Ответь лаконично.`;
+    const fullPrompt = `Переведи лаконично и грамматически правильно «${text.trim()}» на ${targetLang} язык.`;
 
     const body = {
       contents: [
@@ -38,7 +38,7 @@ export default class gemini extends BaseTranslator {
       ],
       "generationConfig": {
         "temperature": 0.7,
-        "topP": 0.8
+        "topP": 0.7
       }
     };
 
