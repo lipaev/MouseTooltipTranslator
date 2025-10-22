@@ -28,7 +28,7 @@ export default class gemini extends BaseTranslator {
       return response
     }
 
-    const fullPrompt = `Переведи лаконично и грамматически правильно «${text.trim()}» на ${targetLang} язык.`;
+    const fullPrompt = `Переведи без лишних комментариев и грамматически правильно «${text.trim()}» на ${targetLang} язык.`;
 
     const body = {
       contents: [
