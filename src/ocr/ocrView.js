@@ -29,12 +29,11 @@ export async function checkImage(x, y, currentSetting, keyDownList) {
   // if  ocr is not on or no key bind, skip
   // if mouse target is not image, skip
   // if already ocr processed,skip
-  var img = util.deepElementFromPoint(x, y);
-  if (
-    !keyDownList[currentSetting["keyDownOCR"]] ||
-    !checkIsImage(img) ||
-    ocrHistory[img.src]
-  ) {
+  if ( !keyDownList[currentSetting["keyDownOCR"]] ) {
+    return;
+  }
+  var img = util.getPointedImg(x, y);
+  if( !img ||  ocrHistory[img?.src]) {
     return;
   }
   setting = currentSetting;
@@ -61,6 +60,8 @@ export async function checkImage(x, y, currentSetting, keyDownList) {
     processOcr(img.src, lang, base64Url, img, "BLUE", "auto"),
     processOcr(img.src, lang, base64Url, img, "RED", "bbox_small"),
     processOcr(img.src, lang, base64Url, img, "GREEN", "bbox"),
+    // processOcr(img.src, lang, base64Url, img, "PURPLE", "bbox_contour_useOpencvImg"),
+    
     processOcr(
       img.src,
       lang,
@@ -101,11 +102,10 @@ async function processOcr(mainUrl, lang, base64Url, img, color, mode = "auto") {
   }
   var ratio = 1;
   var bboxList = [[]];
-  var opencvImg;
   // OCR process with opencv, then display
   if (mode.includes("bbox")) {
     // console.time("OCR Process with OpenCV"+mode);
-    var { bboxList, base64Url, ratio, opencvImg } = await requestSegmentBox(
+    var { bboxList, base64Url, ratio } = await requestSegmentBox(
       mainUrl,
       lang,
       base64Url,
@@ -122,17 +122,6 @@ async function processOcr(mainUrl, lang, base64Url, img, color, mode = "auto") {
   );
 }
 
-function checkIsImage(ele) {
-  // loaded image that has big enough size,
-  return (
-    ele?.src &&
-    ele?.tagName == "IMG" &&
-    ele?.complete &&
-    ele?.naturalHeight !== 0 &&
-    ele?.width > 300 &&
-    ele?.height > 300
-  );
-}
 
 // create ocr==================
 async function initOCRIframe() {
@@ -219,20 +208,20 @@ async function showOcrData(img, ocrData, ratio, color) {
   var textBoxList = getTextBoxList(ocrData);
   textBoxList.forEach((textBox) => adjustTextBoxBbox(textBox, ratio));
 
-  if (setting["ocrTooltipBox"] == "true") {
-    showTooltipBoxes(img, textBoxList);
-  } else {
-    createOcrTextBlocks(img, textBoxList, color);
-  }
+  showTooltipBoxes(img, textBoxList);
+  // createOcrTextBlocks(img, textBoxList, color);
 }
 
 async function showTooltipBoxes(img, textBoxList) {
   var filteredTextBoxList = filterDuplicateOcr(img, textBoxList);
 
   for (var textBox of filteredTextBoxList) {
-    var { targetText, sourceLang, targetLang } = await handleTranslate(
+    var { targetText, sourceLang, targetLang } = await translateWithOCRVendor(
       textBox["text"]
     );
+    if (!targetText || targetText.length < 2) {
+      continue; // Skip if translation is empty or too short
+    }
 
     const isAlreadyTranslated = translatorHistory[img.src].some(
       (prevTargetText) => {
@@ -321,25 +310,25 @@ function adjustTextBoxBbox(textBox, ratio) {
 
 function addTooltipBox(img, textBox, text, targetLang) {
   // Create a tooltip element using Tippy.js
+  var zIndex = 100000 + textBox["text"].length +textBox["confidence"]; // Adjust z-index based on text length
   var tooltipWidth = Math.max(
     200,
     textBox["bbox"]["x1"] - textBox["bbox"]["x0"]
   );
-  const tooltipContent = $("<span/>", {
-    text: text,
-    css: {
-      wordWrap: "break-word",
-      zIndex: 1000001, // Ensure tooltip content is in front
-      pointerEvents: "auto", // Allow pointer interactions with the tooltip content
-      dir: getRtlDir(targetLang), // Set direction based on target language
-    },
-  });
-
   const { left, top, width, height } = calculateImgSegBoxSize(
     img,
     textBox["bbox"]
   );
 
+  const tooltipContent = $("<span/>", {
+    text: text,
+    css: {
+      wordWrap: "break-word",
+      zIndex: 100000, // Ensure tooltip content is in front
+      pointerEvents: "auto", // Allow pointer interactions with the tooltip content
+      dir: getRtlDir(targetLang), // Set direction based on target language
+    },
+  });
   const tooltipTarget = $("<div/>", {
     css: {
       position: "absolute",
@@ -347,7 +336,7 @@ function addTooltipBox(img, textBox, text, targetLang) {
       top: `${top + height * 0.7}px`,
       width: `${width}px`,
       height: `1px`,
-      zIndex: 100000 + textBox["text"].length, // Adjust z-index based on text length
+      zIndex,
       pointerEvents: "none",
     },
   }).appendTo(img.parentElement);
@@ -357,7 +346,7 @@ function addTooltipBox(img, textBox, text, targetLang) {
     allowHTML: true,
     theme: "ocr",
     placement: "top",
-    zIndex: 100000 + textBox["text"].length, // Adjust z-index based on text length
+    zIndex, 
     arrow: false,
     role: "mtttooltip",
     showOnCreate: true, // Ensure the tooltip is always visible
@@ -529,7 +518,7 @@ function makeNormalMouseStyle(ele) {
   ele.style.cursor = "";
 }
 
-async function handleTranslate(text) {
+async function translateWithOCRVendor(text) {
   var translatorVendor = setting["translatorVendor"];
   if (translatorVendor !== "bing" && translatorVendor !== "google") {
     translatorVendor = "google";

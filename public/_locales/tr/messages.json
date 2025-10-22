@@ -39,7 +39,7 @@
 		"message": "KEYBOARD                                      "
 	},
 	"KEYBOARD": {
-		"message": "KEYBOARD"
+		"message": "KLAVYE"
 	},
 	"Show_Tooltip_When": {
 		"message": "İpucu Ne Zaman Gösterilsin"
@@ -153,13 +153,10 @@
 		"message": "Tooltip Kelime Sözlüğü"
 	},
 	"Voice_Translated_Speed": {
-		"message": "Voice Translated Speed"
+		"message": "Sesli Çeviri Hızı"
 	},
 	"Fallback_Translator_Engine": {
-		"message": "Fallback Translator Engine"
-	},
-	"OCR_Tooltip_Box": {
-		"message": "OCR Tooltip Box"
+		"message": "Yedek Çevirmen Motoru"
 	},
 	"SPEECH": {
 		"message": "Konuşma"
@@ -213,7 +210,22 @@
 		"message": "Exclude Website"
 	},
 	"Whitelist_Website": {
-		"message": "Whitelist Website"
+		"message": "Beyaz Liste Web Sitesi"
+	},
+	"BACKUP______________________________________": {
+		"message": "YEDEKLE                                      "
+	},
+	"BACKUP": {
+		"message": "YEDEKLE"
+	},
+	"Import_Setting": {
+		"message": "Ayarları İçe Aktar"
+	},
+	"Export_Setting": {
+		"message": "Ayarları Dışarı Aktar"
+	},
+	"Reset_Setting": {
+		"message": "Ayarları Sıfırla"
 	},
 	"About______________________________________": {
 		"message": "About                                      "
@@ -279,16 +291,151 @@
 		"message": "Kahve                                      "
 	},
 	"Support_this_extension": {
-		"message": "Support this extension"
+		"message": "Bu uzantıyı destekleyin"
 	},
 	"Feed_a_coffee_to_the_extension_devs": {
-		"message": "Feed a coffee to the extension devs"
+		"message": "Uzantı geliştiricilerine bir kahve verin"
 	},
 	"Title______________________________________": {
 		"message": "Title                                      "
 	},
+	"SELECT_OPTION______________________________": {
+		"message": "SEÇENEĞİ SEÇ                              "
+	},
+	"On": {
+		"message": "On"
+	},
+	"Off": {
+		"message": "Off"
+	},
+	"Auto": {
+		"message": "Auto"
+	},
+	"None": {
+		"message": "None"
+	},
+	"Select": {
+		"message": "Select"
+	},
+	"Mouseover": {
+		"message": "Mouseover"
+	},
+	"Mouseover_n_Select": {
+		"message": "Mouseover n Select"
+	},
+	"Follow": {
+		"message": "Follow"
+	},
+	"Fixed": {
+		"message": "Fixed"
+	},
+	"Fade": {
+		"message": "Fade"
+	},
+	"Scale": {
+		"message": "Scale"
+	},
+	"Shift_away": {
+		"message": "Shift away"
+	},
+	"Shift_toward": {
+		"message": "Shift toward"
+	},
+	"Perspective": {
+		"message": "Perspective"
+	},
+	"Word": {
+		"message": "Word"
+	},
+	"Sentence": {
+		"message": "Sentence"
+	},
+	"Container": {
+		"message": "Container"
+	},
+	"Source": {
+		"message": "Source"
+	},
+	"Source_Text": {
+		"message": "Source Text"
+	},
+	"Translated_Text": {
+		"message": "Translated Text"
+	},
+	"Source_n_Translated": {
+		"message": "Source n Translated"
+	},
+	"Translated_n_Source": {
+		"message": "Translated n Source"
+	},
+	"Dual_Subtitle": {
+		"message": "Dual Subtitle"
+	},
+	"Target_Single_Subtitle": {
+		"message": "Target Single Subtitle"
+	},
+	"Source_Single_Subtitle": {
+		"message": "Source Single Subtitle"
+	},
+	"Always": {
+		"message": "Always"
+	},
+	"Center": {
+		"message": "Center"
+	},
+	"Left": {
+		"message": "Left"
+	},
+	"Right": {
+		"message": "Right"
+	},
+	"Justify": {
+		"message": "Justify"
+	},
+	"Default": {
+		"message": "Default"
+	},
+	"Ctrl_Left": {
+		"message": "Ctrl Left"
+	},
+	"Ctrl_Right": {
+		"message": "Ctrl Right"
+	},
+	"Alt_Left": {
+		"message": "Alt Left"
+	},
+	"Alt_Right": {
+		"message": "Alt Right"
+	},
+	"Shift_Left": {
+		"message": "Shift Left"
+	},
+	"Shift_Right": {
+		"message": "Shift Right"
+	},
+	"Meta_Left": {
+		"message": "Meta Left"
+	},
+	"Meta_Right": {
+		"message": "Meta Right"
+	},
+	"Click_Left": {
+		"message": "Click Left"
+	},
+	"Click_Middle": {
+		"message": "Click Middle"
+	},
+	"Click_Right": {
+		"message": "Click Right"
+	},
+	"google": {
+		"message": "google"
+	},
+	"bing": {
+		"message": "bing"
+	},
 	"appName": {
-		"message": "Mouse Tooltip Translator - PDF & Netflix Youtube dual subs"
+		"message": "Fare Araç İpucu Çevirmeni - PDF & Netflix Youtube çift alt yazı"
 	},
 	"appDesc": {
 		"message": "Fare araç ipucu çevirmen google çevirisini kullanarak mouseover metnini çevir. Support OCR, TTS, manga translator & pdf translator"

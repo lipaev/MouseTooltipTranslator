@@ -1,6 +1,7 @@
 
 
 # python -m pip install --pre googletrans
+#  pip install "httpx>=0.27.2,<1.0"
 # pip install tqdm
 # python ./doc/insertLocale.py
 
@@ -79,7 +80,6 @@ i18List = [
     "Tooltip Word Dictionary",
     "Voice Translated Speed",
     "Fallback Translator Engine",
-    "OCR Tooltip Box",
 
     "SPEECH",
     "Speech Recognition Language",
@@ -102,6 +102,13 @@ i18List = [
     "Exclude Language",
     "Exclude Website",
     "Whitelist Website",
+
+
+    "BACKUP                                      ",
+    "BACKUP",
+    "Import Setting",
+    "Export Setting",
+    "Reset Setting",
 
     "About                                      ",
     "How to use",
@@ -130,6 +137,53 @@ i18List = [
     "Feed a coffee to the extension devs",
 
     "Title                                      ",
+    
+    
+    "SELECT OPTION                              ",
+    "On",
+    "Off",
+    "Auto",
+    "None",
+    "Select",
+    "Mouseover",
+    "Mouseover n Select",
+    "Follow",
+    "Fixed",
+    "Fade",
+    "Scale",
+    "Shift away",
+    "Shift toward",
+    "Perspective",
+    "Word",
+    "Sentence",
+    "Container",
+    "Source",
+    "Source Text",
+    "Translated Text",
+    "Source n Translated",
+    "Translated n Source",
+    "Dual Subtitle",
+    "Target Single Subtitle",
+    "Source Single Subtitle",
+    "Always",
+    "Center",
+    "Left",
+    "Right",
+    "Justify",
+    "Default",
+    "Ctrl Left",
+    "Ctrl Right",
+    "Alt Left",
+    "Alt Right",
+    "Shift Left",
+    "Shift Right",
+    "Meta Left",
+    "Meta Right",
+    "Click Left",
+    "Click Middle",
+    "Click Right",
+    "google",
+    "bing",
 ]
 
 

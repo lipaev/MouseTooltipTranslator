@@ -117,7 +117,7 @@
 		"message": "Скорость голоса"
 	},
 	"Voice_Target": {
-		"message": "Цель воспроизведения"
+		"message": "Что озвучивать"
 	},
 	"Voice_Repeat": {
 		"message": "Повторение воспроизведения"
@@ -156,10 +156,7 @@
 		"message": "Скорость воспроизведения перевода"
 	},
 	"Fallback_Translator_Engine": {
-		"message": "Fallback Translator Engine"
-	},
-	"OCR_Tooltip_Box": {
-		"message": "OCR Tooltip Box"
+		"message": "Резервный движок перевода"
 	},
 	"SPEECH": {
 		"message": "РАСПОЗНАВАНИЕ РЕЧИ"
@@ -213,7 +210,22 @@
 		"message": "Исключить указанный веб-сайт"
 	},
 	"Whitelist_Website": {
-		"message": "Whitelist Website"
+		"message": "Белый список сайтов"
+	},
+	"BACKUP______________________________________": {
+		"message": "РЕЗЕРВНОЕ КОПИРОВАНИЕ                                      "
+	},
+	"BACKUP": {
+		"message": "РЕЗЕРВНОЕ КОПИРОВАНИЕ"
+	},
+	"Import_Setting": {
+		"message": "Импорт настроек"
+	},
+	"Export_Setting": {
+		"message": "Экспорт настроек"
+	},
+	"Reset_Setting": {
+		"message": "Сброс настроек"
 	},
 	"About______________________________________": {
 		"message": "О программе                                      "
@@ -234,7 +246,7 @@
 		"message": "Просмотр Ebook-файла"
 	},
 	"Translate_local_ebook_file": {
-		"message": "Перевести локальный Ebook-файл"
+		"message": "Перевести локальный EPUB-файл"
 	},
 	"Twitter": {
 		"message": "X"
@@ -258,7 +270,7 @@
 		"message": "Политика конфиденциальности"
 	},
 	"User_privacy_policy": {
-		"message": "Политика конфиденциальности пользователя"
+		"message": "Пользовательская политика конфиденциальности"
 	},
 	"Voice_Panel": {
 		"message": "Голосовая панель"
@@ -286,6 +298,141 @@
 	},
 	"Title______________________________________": {
 		"message": "Название                                      "
+	},
+	"SELECT_OPTION______________________________": {
+		"message": "ВЫБЕРИТЕ ОПЦИЮ                              "
+	},
+	"On": {
+		"message": "Вкл."
+	},
+	"Off": {
+		"message": "Выкл."
+	},
+	"Auto": {
+		"message": "Авто"
+	},
+	"None": {
+		"message": "Не выбрано"
+	},
+	"Select": {
+		"message": "Выделение"
+	},
+	"Mouseover": {
+		"message": "Наведение курсора"
+	},
+	"Mouseover_n_Select": {
+		"message": "Наведение и выделение"
+	},
+	"Follow": {
+		"message": "Следовать за курсором"
+	},
+	"Fixed": {
+		"message": "Фиксированная"
+	},
+	"Fade": {
+		"message": "Затухание"
+	},
+	"Scale": {
+		"message": "Масштабирование"
+	},
+	"Shift_away": {
+		"message": "Сдвиг от курсора"
+	},
+	"Shift_toward": {
+		"message": "Сдвиг к курсору"
+	},
+	"Perspective": {
+		"message": "Перспектива"
+	},
+	"Word": {
+		"message": "Слово"
+	},
+	"Sentence": {
+		"message": "Предложение"
+	},
+	"Container": {
+		"message": "Контейнер"
+	},
+	"Source": {
+		"message": "Оригинал"
+	},
+	"Source_Text": {
+		"message": "Текст оригинала"
+	},
+	"Translated_Text": {
+		"message": "Переведённый текст"
+	},
+	"Source_n_Translated": {
+		"message": "Оригинал и перевод"
+	},
+	"Translated_n_Source": {
+		"message": "Перевод и оригинал"
+	},
+	"Dual_Subtitle": {
+		"message": "Двойные субтитры"
+	},
+	"Target_Single_Subtitle": {
+		"message": "Только перевод"
+	},
+	"Source_Single_Subtitle": {
+		"message": "Только оригинал"
+	},
+	"Always": {
+		"message": "Всегда"
+	},
+	"Center": {
+		"message": "По центру"
+	},
+	"Left": {
+		"message": "Слева"
+	},
+	"Right": {
+		"message": "Справа"
+	},
+	"Justify": {
+		"message": "По ширине"
+	},
+	"Default": {
+		"message": "По умолчанию"
+	},
+	"Ctrl_Left": {
+		"message": "Левый Ctrl"
+	},
+	"Ctrl_Right": {
+		"message": "Правый Ctrl"
+	},
+	"Alt_Left": {
+		"message": "Левый Alt"
+	},
+	"Alt_Right": {
+		"message": "Правый Alt"
+	},
+	"Shift_Left": {
+		"message": "Левый Shift"
+	},
+	"Shift_Right": {
+		"message": "Правый Shift"
+	},
+	"Meta_Left": {
+		"message": "Левая клавиша Windows"
+	},
+	"Meta_Right": {
+		"message": "Правая клавиша Windows"
+	},
+	"Click_Left": {
+		"message": "Клик левой кнопкой мыши"
+	},
+	"Click_Middle": {
+		"message": "Клик средней кнопкой мыши"
+	},
+	"Click_Right": {
+		"message": "Клик правой кнопкой мыши"
+	},
+	"google": {
+		"message": "Google"
+	},
+	"bing": {
+		"message": "Bing"
 	},
 	"appName": {
 		"message": "Переводчик подсказок мыши - PDF и субтитры Netflix Youtube"

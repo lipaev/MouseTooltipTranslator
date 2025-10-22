@@ -5,19 +5,11 @@
 import browser from "webextension-polyfill";
 import TextUtil from "/src/util/text_util.js";
 
-import translator from "./translator/index.js";
 import TTS from "/src/tts";
-
+import { translate } from "/src/translator/translateCaller.js";
 import * as util from "/src/util";
 import SettingUtil from "/src/util/setting_util.js";
 import _util from "/src/util/lodash_util.js";
-
-var fallbackEngineActList = ["google", "bing", "baidu", "papago", "deepl", "yandex"];
-var fallbackEngineCrashTime = { google: 1, bing: 2, baidu: 3 };
-var fallbackEngineCrashCount = {};
-var fallbackWaitTime = 1000 * 60 * 60; // 1 hour
-var fallbackEngineSwapList = ["google", "bing", "baidu"];
-var fallbackMaxRetry = fallbackEngineSwapList.length;
 
 var setting;
 var recentTranslated = "";
@@ -27,8 +19,8 @@ var recentRecord = {};
 
 (async function backgroundInit() {
   try {
-    handleFirstTimeInstall(introSiteUrl); // check first start and redirect to how to use url
     injectContentScriptForAllTab(); // check extension updated, then re inject content script
+    addInstallUrl(introSiteUrl); // check first start and redirect to how to use url
     // addUninstallUrl(util.getReviewUrl());  //listen extension uninstall and
 
     await getSetting(); //  load setting
@@ -52,7 +44,7 @@ function addMessageListener() {
   ) {
     (async () => {
       if (request.type === "translate") {
-        var translatedResult = await translateWithReverse(request.data);
+        var translatedResult = await translate(request.data, setting);
         sendResponse(translatedResult);
       } else if (request.type === "tts") {
         request.data.setting = setting;
@@ -78,117 +70,19 @@ function addMessageListener() {
           request?.data?.includeCaller
         );
         sendResponse({});
+      } else if (request.type === "resetSetting") {
+        setting = await SettingUtil.resetSetting();
+        sendResponse({ success: true });
+      } else if (request.type === "importSetting") {
+        setting = await SettingUtil.importSetting(request.data);
+        sendResponse({ success: true });
+      } else if (request.type === "exportSetting") {
+        const settingData = await SettingUtil.exportSetting();
+        sendResponse({ settingData });
       }
     })();
     return true;
   });
-}
-
-//translate function====================================================
-
-async function translateWithReverse({
-  text,
-  sourceLang,
-  targetLang,
-  reverseLang,
-  engine,
-}) {
-  var engine = engine || setting["translatorVendor"];
-  var response = await translate({ text, sourceLang, targetLang, engine });
-  //if to,from lang are same and reverse translate on
-  if (
-    !response.isBroken &&
-    targetLang == response.sourceLang &&
-    // text == response.translatedText &&
-    reverseLang != null &&
-    reverseLang != "null" &&
-    reverseLang != targetLang
-  ) {
-    response = await translate({
-      text,
-      sourceLang: response.sourceLang,
-      targetLang: reverseLang,
-      engine,
-    });
-  }
-  return response;
-}
-
-async function translate({ text, sourceLang, targetLang, engine }) {
-  return (
-    (await translateWithFallbackEngine(
-      text,
-      sourceLang,
-      targetLang,
-      engine
-    )) || {
-      targetText: `${engine} is broken`,
-      transliteration: "",
-      sourceLang: "",
-      targetLang: setting["translateTarget"],
-      isBroken: true,
-    }
-  );
-}
-
-async function translateWithFallbackEngine(
-  text,
-  sourceLang,
-  targetLang,
-  engine,
-  retry = 0
-) {
-  if (retry > fallbackMaxRetry) {
-    return null;
-  }
-  if (fallbackEngineCrashCount[engine] == null) {
-    fallbackEngineCrashCount[engine] = 0;
-  }
-  if (fallbackEngineCrashTime[engine] == null) {
-    fallbackEngineCrashTime[engine] = 4;
-  }
-  let translateResult;
-  var isFallbackApply =
-    setting["fallbackTranslatorEngine"] == "true" &&
-    fallbackEngineActList.includes(engine);
-  var sortedEngines = Object.keys(fallbackEngineCrashTime)
-    .filter((engine_cur) => fallbackEngineSwapList.includes(engine_cur))
-    .filter((engine_cur) => engine_cur != engine)
-    .sort((a, b) => fallbackEngineCrashTime[a] - fallbackEngineCrashTime[b]);
-  var swapEngine = sortedEngines[0];
-
-  if (
-    fallbackEngineCrashTime[engine] < new Date().getTime() ||
-    !isFallbackApply
-  ) {
-    translateResult = await getTranslateCached(
-      text,
-      sourceLang,
-      targetLang,
-      engine
-    );
-  }
-
-  if (isFallbackApply && !translateResult) {
-    fallbackEngineCrashCount[engine] += 1; // increase crash count
-    fallbackEngineCrashTime[engine] =
-      new Date().getTime() +
-      fallbackWaitTime * fallbackEngineCrashCount[engine]; // set next retry time
-    translateResult = await translateWithFallbackEngine(
-      text,
-      sourceLang,
-      targetLang,
-      swapEngine,
-      retry + 1
-    );
-  }
-  return translateResult;
-}
-
-const getTranslateCached = util.cacheFn(getTranslate);
-
-async function getTranslate(text, sourceLang, targetLang, engine) {
-  return await translator[engine].translate(text, sourceLang, targetLang);
 }
 
 //setting ============================================================
@@ -338,14 +232,10 @@ function addUninstallUrl(url) {
   browser.runtime.setUninstallURL(url);
 }
 
-function handleFirstTimeInstall(url) {
+function addInstallUrl(url) {
   browser.runtime.onInstalled.addListener(async (details) => {
     if (details.reason == "install") {
       browser.tabs.create({ url });
-      await getSetting();
-      var translatorVendor=await SettingUtil.getDefaultTranslator();
-      setting["translatorVendor"]= translatorVendor;
-      setting.save();
     }
   });
 }
@@ -395,12 +285,15 @@ function addSearchBarListener() {
   });
 
   browser.omnibox.onInputEntered.addListener(async (text) => {
-    var translatedResult = await translateWithReverse({
-      text,
-      sourceLang: "auto",
-      targetLang: setting["writingLanguage"],
-      reverseLang: setting["translateTarget"],
-    });
+    var translatedResult = await translate(
+      {
+        text,
+        sourceLang: "auto",
+        targetLang: setting["writingLanguage"],
+        reverseLang: setting["translateTarget"],
+      },
+      setting
+    );
     var text = translatedResult.isBroken ? text : translatedResult.targetText;
     //search with default search engine on current tab
     browser.search.query({ text });

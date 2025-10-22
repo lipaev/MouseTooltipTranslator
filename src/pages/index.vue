@@ -1,7 +1,7 @@
 <template>
   <popupWindow>
     <!-- top nav bar -->
-    <v-toolbar color="blue" dark dense>
+    <v-toolbar color="primary" dark dense>
       <v-col cols="7">
         <v-toolbar-title Class="text-subtitle-1 ml-3 font-weight-bold">
         <div>{{ remainSettingDesc["appName"] }}</div>
@@ -49,7 +49,8 @@
           <v-list-item
             v-for="(option, optionName) in tabItems[tabId]"
             :key="optionName"
-            flat
+            :flat="!option.onClick"
+            @click="option.onClick ? option.onClick() : null"
           >
             <!-- single select (default null) and multiple select option -->
             <v-select
@@ -105,6 +106,16 @@
                 </v-menu>
               </template>
             </v-text-field>
+
+
+            <v-list-item-title v-else-if="option.optionType == 'button'">
+              {{ option.description }}
+            </v-list-item-title>
+            <template v-slot:prepend v-if="option.optionType == 'button'">
+              <v-avatar :color="option.color">
+                <v-icon size="25" color="white">{{ option.icon }}</v-icon>
+              </v-avatar>
+            </template>
           </v-list-item>
         </v-window-item>
       </v-window>
@@ -125,16 +136,30 @@ import {
 import { mapState } from "pinia";
 import { useSettingStore } from "/src/stores/setting.js";
 
+function convertOptionI18n(option) {
+  return Object.fromEntries(
+      Object.entries(option).map(([key, value]) => [
+        browser.i18n.getMessage(key) || key,
+        value,
+      ])
+    );
+}
+
+
+// load setting with i18 convert
 var tabItems = Object.entries(settingDict).reduce((acc, [key, value]) => {
   const tab = value.settingTab.toUpperCase();
   if (tab === "REMAINS") return acc;
   if (!acc[tab]) acc[tab] = {};
 
   value.description = browser.i18n.getMessage(value.i18nKey);
+  value.optionList = convertOptionI18n(value.optionList);
   acc[tab][key] = value;
   return acc;
 }, {});
 
+
+// convert tab name to i18n
 var tabs = Object.keys(tabItems).reduce((acc, tab) => {
   if (tab === "REMAINS") return acc;
   acc[tab] = browser.i18n.getMessage(tab);

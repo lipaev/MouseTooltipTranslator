@@ -1,12 +1,10 @@
 import TextUtil from "/src/util/text_util.js";
-import {
-  langList,
-  ocrLangList,
-  listenLangList,
-} from "/src/util/lang.js";
+import { langList, ocrLangList, listenLangList } from "/src/util/lang.js";
 import _util from "/src/util/lodash_util.js";
-
-
+var browser;
+try {
+  browser = require("webextension-polyfill");
+} catch (error) {}
 
 var langListWithAuto = TextUtil.concatJson({ Auto: "auto" }, langList); //copy lang and add auto
 var langListWithNone = TextUtil.concatJson({ None: "null" }, langList); //copy lang and add none
@@ -19,20 +17,20 @@ var toggleList = {
 
 var keyList = {
   None: "null",
-  "Ctrl Left": "ControlLeft",
-  "Ctrl Right": "ControlRight",
-  "Alt Left": "AltLeft",
-  "Alt Right": "AltRight",
-  "Shift Left": "ShiftLeft",
-  "Shift Right": "ShiftRight",
-  "Meta Left": "MetaLeft",
-  "Meta Right": "MetaRight",
-  "Click Left": "ClickLeft",
-  "Click Middle": "ClickMiddle",
-  "Click Right": "ClickRight",
-  "F2": "F2",
-  "F8": "F8",
-  "F9": "F9",
+  Ctrl_Left: "ControlLeft",
+  Ctrl_Right: "ControlRight",
+  Alt_Left: "AltLeft",
+  Alt_Right: "AltRight",
+  Shift_Left: "ShiftLeft",
+  Shift_Right: "ShiftRight",
+  Meta_Left: "MetaLeft",
+  Meta_Right: "MetaRight",
+  Click_Left: "ClickLeft",
+  Click_Middle: "ClickMiddle",
+  Click_Right: "ClickRight",
+  F2: "F2",
+  F8: "F8",
+  F9: "F9",
 };
 
 var translatorList = {
@@ -62,10 +60,8 @@ var translatorList = {
 var translateActionList = {
   Select: "select",
   Mouseover: "mouseover",
-  "Mouseover & Select": "mouseoverselect",
+  Mouseover_n_Select: "mouseoverselect",
 };
-
-
 
 var tooltipFontSizeList = _util.getRangeOption(6, 41, 2, 0);
 var tooltipWidth = _util.getRangeOption(100, 1001, 100, 0);
@@ -81,10 +77,11 @@ var tooltipPositionList = {
   Fixed: "fixed",
 };
 var tooltipAnimationList = {
+  None: "",
   Fade: "fade",
   Scale: "scale",
-  "Shift-away": "shift-away",
-  "Shift-toward": "shift-toward",
+  Shift_away: "shift-away",
+  Shift_toward: "shift-toward",
   Perspective: "perspective",
 };
 
@@ -102,16 +99,16 @@ keyListWithAlwaysSelect["Select"] = "select";
 keyListWithAlwaysSelect["Always"] = "always";
 
 var voiceTargetList = {
-  "Source Text": "source",
-  "Translated Text": "target",
-  "Source & Translated": "sourcetarget",
-  "Translated & Source": "targetsource",
+  Source_Text: "source",
+  Translated_Text: "target",
+  Source_n_Translated: "sourcetarget",
+  Translated_n_Source: "targetsource",
 };
 
 var subtitleTypeList = {
-  "Dual Subtitle": "dualsub",
-  "Target Single Subtitle": "targetsinglesub",
-  "Source Single Subtitle": "sourcesinglesub",
+  Dual_Subtitle: "dualsub",
+  Target_Single_Subtitle: "targetsinglesub",
+  Source_Single_Subtitle: "sourcesinglesub",
   None: "null",
 };
 
@@ -125,25 +122,18 @@ var textAlignList = {
 var speechTextTargetList = {
   Source: "source",
   Translated: "target",
-  "Source & Translated": "sourcetarget",
+  Source_n_Translated: "sourcetarget",
 };
 
-
-var defaultDict={
-  "Default": "default",
-}
+var defaultDict = {
+  Default: "default",
+};
 
 var voiceRateListWithDefault = TextUtil.concatJson(defaultDict, voiceRateList);
 
 export var settingDict = {
   // main
 
-  translateWhen: {
-    default: "mouseoverselect",
-    i18nKey: "Translate_When",
-    optionList: translateActionList,
-    settingTab: "main",
-  },
   translateSource: {
     default: "auto",
     i18nKey: "Translate_From",
@@ -160,6 +150,12 @@ export var settingDict = {
     default: "google",
     i18nKey: "Translator_Engine",
     optionList: translatorList,
+    settingTab: "main",
+  },
+  translateWhen: {
+    default: "mouseoverselect",
+    i18nKey: "Translate_When",
+    optionList: translateActionList,
     settingTab: "main",
   },
   mouseoverTextType: {
@@ -474,13 +470,6 @@ export var settingDict = {
     optionList: toggleList,
     settingTab: "advanced",
   },
-  ocrTooltipBox: {
-    default: "true",
-    i18nKey: "OCR_Tooltip_Box",
-    optionList: toggleList,
-    settingTab: "advanced",
-  },
-
 
   // exclude
   langExcludeList: {
@@ -549,7 +538,7 @@ export var settingDict = {
     settingTab: "remains",
   },
   mouseoverEventInterval: {
-    default: "400",
+    default: "300",
     i18nKey: "Mouseover_Event_Interval",
     optionList: tooltipIntervalTimeList,
     settingTab: "remains",
@@ -578,8 +567,87 @@ export var settingDict = {
     optionList: [],
     settingTab: "remains",
   },
+
+  importSetting: {
+    i18nKey: "Import_Setting",
+    optionList: [],
+    settingTab: "backup",
+    optionType: "button",
+    icon: "mdi-file-upload",
+    color: "primary",
+    onClick: () => {
+      importSettingOnclickFunc();
+    },
+  },
+  exportSetting: {
+    i18nKey: "Export_Setting",
+    optionList: [],
+    settingTab: "backup",
+    optionType: "button",
+    icon: "mdi-content-save",
+    color: "green",
+    onClick: async () => {
+      exportSettingOnclickFunc();
+    },
+  },
+  resetSetting: {
+    i18nKey: "Reset_Setting",
+    optionList: [],
+    settingTab: "backup",
+    optionType: "button",
+    icon: "mdi-restore",
+    color: "red",
+    onClick: () => {
+      resetSettingOnclickFunc();
+    },
+  },
 };
 
+function importSettingOnclickFunc() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json";
+  input.onchange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const settings = JSON.parse(e.target.result);
+
+          browser.runtime.sendMessage({
+            type: "importSetting",
+            data: settings,
+          });
+        } catch (error) {
+          console.error("Invalid JSON file:", error);
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+  input.click();
+}
+
+async function exportSettingOnclickFunc() {
+  var data = await browser.runtime.sendMessage({
+    type: "exportSetting",
+  });
+  const settings = JSON.stringify(data?.settingData, null, 2);
+  const blob = new Blob([settings], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "mouse-tooltip-translator-settings.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetSettingOnclickFunc() {
+  browser.runtime.sendMessage({
+    type: "resetSetting",
+  });
+}
 
 // Default values for settings get only default key
 export var defaultData = Object.fromEntries(
