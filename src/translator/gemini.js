@@ -2,7 +2,7 @@ import ky from "ky";
 import BaseTranslator from "./baseTranslator";
 import google from "./google";
 
-const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite-preview-06-17:generateContent";
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent";
 const GEMINI_API_KEY = "";
 
 export default class gemini extends BaseTranslator {
