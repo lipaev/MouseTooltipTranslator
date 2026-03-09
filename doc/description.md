@@ -19,6 +19,26 @@ Mouseover Translate Any Language At Once
 English, Russian, Japanese, Chinese and so on
 
 # Change Log
+- 0.1.211
+  - fix mouse deselect button conflict
+- 0.1.210
+  - fix mouse back button conflict 
+  - reapply 0.1.208
+- 0.1.209
+  - rollback 0.1.208
+- 0.1.208
+  - add button to exclude current website (requested by coffeechococake7)
+  - make smooth setting tab transition
+  - remove comment alert
+  - reduce setting tab font size (requested by oblominsk)
+  - reduce setting list item padding space(requested by oblominsk)
+  - add toggle mouseover type swap key setting(requested by oblominsk)
+  - fix edge select menu conflict  
+  - fix vivaldi writing conflict(requested by oblominsk)
+- 0.1.207
+  - fix pdf line break on download delayed pdf
+- 0.1.206
+  - fix pdf line break (requested by mrk67422)
 - 0.1.205
   - Add right mouse hold in pdf viewer now act as handtool (contributed by Witnull)
   - filter parenthesis text from tts (requested by Gobidobi)
